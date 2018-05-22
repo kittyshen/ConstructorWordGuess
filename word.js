@@ -25,12 +25,12 @@ function Word(string){
         // console.log(fullWord);
         return fullWord;
     };
-    this.printWord = function (){
+    this.printWord = function (torf){
         var fullWord = [];
         for(var i=0; i<this.arr.length ; i++){
             fullWord += this.arr[i].hiddenChar();
         } 
-        console.log(fullWord);
+        if(torf) console.log(fullWord);
         return fullWord;
     };
     this.wordGuess = function (char){
