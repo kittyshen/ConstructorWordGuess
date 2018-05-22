@@ -33,7 +33,7 @@ function Word(string){
         console.log(fullWord);
         return fullWord;
     };
-    this.woodGuess = function (char){
+    this.wordGuess = function (char){
         for(var i=0; i<this.arr.length ; i++){
             this.arr[i].guess(char);
         }
@@ -41,12 +41,15 @@ function Word(string){
 }
 
 // testing Word constructor
-var test = new Word("cheese cake");
-console.log(test);
-console.log("*****************");
-test.printWord();
-console.log("*********after guess********");
-test.woodGuess("e");
-test.printWord();
-test.woodGuess("s");
-test.printWord();
+// var test = new Word("cheese cake");
+// console.log(test);
+// console.log("*****************");
+// test.printWord();
+// console.log("*********after guess********");
+// test.woodGuess("e");
+// test.printWord();
+// test.woodGuess("s");
+// test.printWord();
+// test.printTargetWord()
+
+module.exports = Word;
