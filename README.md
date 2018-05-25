@@ -57,7 +57,58 @@ The completed game should meet the following criteria:
 
 ## Key learning points
 ```javascript
-var fs = require("fs"); // added file system for log and other debugging purpose
+function Letter(char){
+    this.char = char;
+    this.charGuesssed = false;
+    this.hiddenChar = function (){
+        if (this.charGuesssed == true){
+            return this.char;
+        }
+        else return " _";
+    };
+  ...
+}
+module.exports = Letter;
+```
+
+```javascript
+var Letter = require("./letter.js");
+
+function Word(string){
+    this.arr = []; //initial a array of Letter obj,this need to be added otherwise can't use the push function on next line
+    for(var i =0; i<string.length ; i++){
+        this.arr.push(new Letter(string[i])); //after create Letter obj with Letter stamp push it into array
+    }
+    ...
+
+    this.printWord = function (torf){
+      var fullWord = [];
+      for(var i=0; i<this.arr.length ; i++){
+          fullWord += this.arr[i].hiddenChar();
+      } 
+      if(torf) console.log(fullWord);
+      return fullWord;
+    };
+    this.wordGuess = function (char){
+      for(var i=0; i<this.arr.length ; i++){
+          this.arr[i].guess(char);
+      }
+    };
+}
+```
+
+```javascript
+  if (afterInput == newWordToGuess.printTargetWord()) { //winning codition meet quit and start new round
+      win ++;
+      console.log("win :" + win + " lose: " +lose);
+      console.log("Successfully guessed: " + newWordToGuess.printTargetWord());
+      gameCount--;
+      playGame();
+  }
+  else {
+      guess();  // call guess function recursively to keep prompt user inpit untill they finish or 10 guess used up
+      console.log(charTyped);
+  }
 ```
 
 ### Author 
