@@ -12,12 +12,14 @@ var wordBank = ["randomly","constructor","character", "function", "number", "let
 "total", "amount", "sales","basic", "cable", "frog", "television", "channel","pork","bracket"];
 var gameCount = 3; // play 3 rounds
 var guessLeft = 10;
-// var charTyped = [];
+var charTyped = [];
 var win = 0;
 var lose = 0;
 
 // define a function to recurcively keep play the game untill 3 rounds passed
 function playGame(){
+    charTyped = [];
+    guessLeft =10; // reset guess count and restart the whole game from picking a random word
     //play 3 rounds
     if (gameCount > 0) {
         //random pick one from word bank
@@ -32,22 +34,25 @@ function playGame(){
                     message: "type a letter to guess: ",
                     name: "charTyping",
                 }).then(function (input) {
+                    charTyped.push(input.charTyping);
                     newWordToGuess.wordGuess(input.charTyping);
                     var afterInput = newWordToGuess.printWord();  //dont' print out the after input word status otherwise double printing
                     if (beforeInput === afterInput ) {  // user input isn't in the letter array, word stay the same before and after
                         guessLeft--;
                         console.log(guessLeft + " Guess Left");
                     }
-
                     // checking wining or losing condition
                     if (afterInput == newWordToGuess.printTargetWord()) { //winning codition meet quit and start new round
                         win ++;
                         console.log("win :" + win + " lose: " +lose);
+                        console.log("Successfully guessed: " + newWordToGuess.printTargetWord());
                         gameCount--;
-                        guessLeft =10; // reset guess count and restart the whole game from picking a random word
                         playGame();
                     }
-                    else guess();  // call guess function recursively to keep prompt user inpit untill they finish or 10 guess used up
+                    else {
+                        guess();  // call guess function recursively to keep prompt user inpit untill they finish or 10 guess used up
+                        console.log(charTyped);
+                    }
                 })
 
             }
@@ -56,7 +61,6 @@ function playGame(){
                 lose ++;
                 console.log("win :" + win + " lose: " +lose);
                 gameCount--;
-                guessLeft =10; // reset guess count and restart the whole game from picking a random word
                 playGame();
             }
         }
